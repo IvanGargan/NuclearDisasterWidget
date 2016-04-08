@@ -52,7 +52,7 @@ define([
       },
 
       disaster: function(){
-      //Simbologia para el Buffer
+        //Simbologia para el Buffer
         var bufferSymbol = new SimpleFillSymbol(
           SimpleFillSymbol.STYLE_SOLID, 
           new SimpleLineSymbol(SimpleLineSymbol.STYLE_LONGDASH, 
@@ -64,17 +64,20 @@ define([
         var r = document.getElementById("radio");
         var radio = r.value;
 
-        //Variable punto para el buffer
-        var pt = document.getElementById("react");
-        var ptY = pt.y;
-        var ptX = pt.x;
-        var p = new Point([ptY,ptX],map.spatialReference);
-        
+        //Variable punto para el buffer        
+        //y=69.885 x=22.349 West Reactor
+        //y=69.865 x=22.353 East Reactor       
+        // var p = new Point(69.885,22.349,map.spatialReference);
+        var pt = document.getElementById("react").value;
+          if (pt == "West Reactor") {
+            var p = new Point([69.885,22.349],map.spatialReference);
+          } else {
+            var p = new Point([69.865,22.353],map.spatialReference);
+          }   
+
         //Creacion del buffer geometryEngine.geodesicBuffer(punto,radio,unidades)
         var bufferedGeometries = geometryEngine.geodesicBuffer(p, radio, "kilometers");
         var bufferGraphic = new Graphic(bufferedGeometries, bufferSymbol);
-
-
         
         //Buffer al grafico
         this.graphicsLayer.add(bufferGraphic);
@@ -85,6 +88,7 @@ define([
           //Boton para limpiar los buffer del mapa
           this.graphicsLayer.clear();
         }
+
 
       // onClose: function(){
       //   console.log('onClose');
