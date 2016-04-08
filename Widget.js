@@ -65,7 +65,11 @@ define([
         var radio = r.value;
 
         //Variable punto para el buffer
-        var p = new Point(69.885,22.349,map.spatialReference);
+        var pt = document.getElementById("react");
+        var ptY = pt.y;
+        var ptX = pt.x;
+        var p = new Point([ptY,ptX],map.spatialReference);
+        
         //Creacion del buffer geometryEngine.geodesicBuffer(punto,radio,unidades)
         var bufferedGeometries = geometryEngine.geodesicBuffer(p, radio, "kilometers");
         var bufferGraphic = new Graphic(bufferedGeometries, bufferSymbol);
